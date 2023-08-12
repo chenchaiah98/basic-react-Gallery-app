@@ -1,0 +1,19 @@
+/* Write your code here. */
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.gallery-image {
+  height: 400px;
+  width: 600px;
+}
+.list-image {
+  display: flex;
+
+  list-style: none;
+}
+.list-image li {
+  margin: 0px 10px;
+}
