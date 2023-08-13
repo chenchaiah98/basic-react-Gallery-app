@@ -1,9 +1,23 @@
 // Write your code here.
+// import {Component} from 'react'
+
 const ThumbnailItem = props => {
-  const {thumbnailitem} = props
+  const {thumbnailItem, onImageClickBtn} = props
+  const {id, thumbnailUrl, thumbnailAltText} = thumbnailItem
+
+  const onClickLiBtn = e => {
+    onImageClickBtn(e.target.id)
+  }
   return (
     <li>
-      <img src={thumbnailitem.thumbnailUrl} alt="" />
+      <button type="button">
+        <img
+          id={id}
+          src={thumbnailUrl}
+          alt={thumbnailAltText}
+          onClick={onClickLiBtn}
+        />
+      </button>
     </li>
   )
 }

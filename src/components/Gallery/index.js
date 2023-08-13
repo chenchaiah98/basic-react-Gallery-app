@@ -75,15 +75,31 @@ const imagesList = [
 
 // Write your code here.
 class Gallery extends Component {
+  state = {imgUrl: imagesList[0].imageUrl, imgText: imagesList[0].imageAltText}
+
+  onImageClickBtn = id => {
+    const filteredImage = imagesList.find(each => each.id.toString() === id)
+    this.setState({
+      imgUrl: filteredImage.imageUrl,
+      imgText: filteredImage.imageAltText,
+    })
+  }
+
   render() {
+    const {imgUrl, imgText} = this.state
+
     return (
       <div className="app-container">
-        <img src={imagesList[0].imageUrl} alt="" className="gallery-image" />
-        <h1>natural photo</h1>
-        <p>natural photo</p>
+        <img src={imgUrl} alt={imgText} className="gallery-image" />
+        <h1>Nature Photography</h1>
+        <p>Nature Photography by Rahul</p>
         <ul className="list-image">
           {imagesList.map(each => (
-            <ThumbnailItem thumbnailitem={each} key={each.id} />
+            <ThumbnailItem
+              thumbnailItem={each}
+              key={each.id}
+              onImageClickBtn={this.onImageClickBtn}
+            />
           ))}
         </ul>
       </div>
