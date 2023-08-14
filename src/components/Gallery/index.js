@@ -1,6 +1,8 @@
 import {Component} from 'react'
+
+import ThumbnailItem from '../ThumbnailItem'
+
 import './index.css'
-import ThumbnailItem from '../ThumbnailItem/index'
 
 const imagesList = [
   {
@@ -73,37 +75,41 @@ const imagesList = [
   },
 ]
 
-// Write your code here.
 class Gallery extends Component {
-  state = {imgUrl: imagesList[0].imageUrl, imgText: imagesList[0].imageAltText}
+  state = {
+    activeThumbnailId: imagesList[0].id,
+  }
 
-  onImageClickBtn = id => {
-    const filteredImage = imagesList.find(each => each.id.toString() === id)
+  setActiveThumbnailId = id => {
     this.setState({
-      imgUrl: filteredImage.imageUrl,
-      imgText: filteredImage.imageAltText,
+      activeThumbnailId: id,
     })
   }
 
   render() {
-    const {imgUrl, imgText} = this.state
+    const {activeThumbnailId} = this.state
+    const {imageUrl, imageAltText} = imagesList[activeThumbnailId]
 
     return (
       <div className="app-container">
-        <img src={imgUrl} alt={imgText} className="gallery-image" />
-        <h1>Nature Photography</h1>
-        <p>Nature Photography by Rahul</p>
-        <ul className="list-image">
-          {imagesList.map(each => (
-            <ThumbnailItem
-              thumbnailItem={each}
-              key={each.id}
-              onImageClickBtn={this.onImageClickBtn}
-            />
-          ))}
-        </ul>
+        <div className="gallery-container">
+          <img src={imageUrl} className="selected-image" alt={imageAltText} />
+          <h1 className="heading">Nature Photography</h1>
+          <p className="description">Nature Photography by Rahul</p>
+          <ul className="thumbnails-list">
+            {imagesList.map(eachImage => (
+              <ThumbnailItem
+                key={eachImage.id}
+                imageDetails={eachImage}
+                isActive={activeThumbnailId === eachImage.id}
+                setActiveThumbnailId={this.setActiveThumbnailId}
+              />
+            ))}
+          </ul>
+        </div>
       </div>
     )
   }
 }
+
 export default Gallery

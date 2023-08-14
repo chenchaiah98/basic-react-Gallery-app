@@ -1,24 +1,29 @@
-// Write your code here.
-// import {Component} from 'react'
+import './index.css'
 
 const ThumbnailItem = props => {
-  const {thumbnailItem, onImageClickBtn} = props
-  const {id, thumbnailUrl, thumbnailAltText} = thumbnailItem
+  const {imageDetails, isActive, setActiveThumbnailId} = props
+  const {thumbnailUrl, thumbnailAltText, id} = imageDetails
+  const thumbnailClassName = isActive ? `thumbnail active` : `thumbnail`
 
-  const onClickLiBtn = e => {
-    onImageClickBtn(e.target.id)
+  const onClickThumbnail = () => {
+    setActiveThumbnailId(id)
   }
+
   return (
-    <li>
-      <button type="button">
+    <li className="thumbnail-list-item">
+      <button
+        type="button"
+        className="thumbnail-button"
+        onClick={onClickThumbnail}
+      >
         <img
-          id={id}
           src={thumbnailUrl}
           alt={thumbnailAltText}
-          onClick={onClickLiBtn}
+          className={thumbnailClassName}
         />
       </button>
     </li>
   )
 }
+
 export default ThumbnailItem
